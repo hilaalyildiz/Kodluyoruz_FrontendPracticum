@@ -81,3 +81,82 @@ const menu = [
     desc: `Red bean paste dessert, serving with honey.`,
   },
 ];
+
+const buttonSection = document.querySelector(".btn-container")
+const menuSection = document.querySelector(".section-center")
+
+const createButtons = () => {
+  let allButtons = `
+    <button id="all" class="btn btn-outline-dark btn-item" type="button">
+      All
+    </button>
+    <button id="korea" class="btn btn-outline-dark btn-item" type="button">
+      Korea
+    </button>
+    <button id="japan" class="btn btn-outline-dark btn-item" type="button">
+      Japan
+    </button>
+    <button id="china" class="btn btn-outline-dark btn-item" type="button">
+      China
+    </button>
+  `
+  buttonSection.innerHTML = allButtons
+}
+
+createButtons()
+
+// Create foods 
+const createFoods = (food) => {
+  let html = `
+    <div class="menu-items col-lg-6 col-sm-12">
+      <img class="photo" src="${food.img}" alt="${food.title}">
+      <div class="menu-info">
+        <div class="menu-title">
+          <h4>${food.title}</h4>
+          <h4 class="price">${food.price}</h4>
+        </div>
+        <div class="menu-text">${food.desc}</div>
+      </div>
+    </div>  
+  `
+  return html
+}
+
+// List all foods
+const listAllFoods = () => {
+  let allFoods=""
+
+  menu.map(item => {
+    allFoods += createFoods(item)
+  })
+  menuSection.innerHTML = allFoods
+}
+
+// Show all foods on homepage
+document.addEventListener("DOMContentLoaded",listAllFoods());
+
+const filterFoods = () => {
+  let koreaFoods=""
+  let japanFoods=""
+  let chinaFoods=""
+
+  menu.map(item => {
+    if(item.category === "Korea"){
+      koreaFoods += createFoods(item)
+    }else if (item.category === "China"){
+      chinaFoods += createFoods(item)
+    }else {
+      japanFoods += createFoods(item)
+    }
+
+  })
+
+  menuSection.innerHTML = koreaFoods
+  menuSection.innerHTML = japanFoods
+  menuSection.innerHTML = chinaFoods
+}
+
+document.querySelector("#china").addEventListener("click",listChinaFoods)
+document.querySelector("#japan").addEventListener("click",listJapanFoods)
+document.querySelector("#korea").addEventListener("click",listKoreaFoods)
+document.querySelector("#all").addEventListener("click",listAllFoods)
