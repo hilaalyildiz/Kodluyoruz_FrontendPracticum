@@ -135,28 +135,38 @@ const listAllFoods = () => {
 // Show all foods on homepage
 document.addEventListener("DOMContentLoaded",listAllFoods());
 
-const filterFoods = () => {
-  let koreaFoods=""
-  let japanFoods=""
-  let chinaFoods=""
+const filterFoods = (country) => {
+  let content=""
 
-  menu.map(item => {
-    if(item.category === "Korea"){
-      koreaFoods += createFoods(item)
-    }else if (item.category === "China"){
-      chinaFoods += createFoods(item)
+  menu.forEach(item => {
+    if(item.category === "Korea" && country === "Korea"){
+      content += createFoods(item)
+    }else if (item.category === "China" && country === "China"){
+      content += createFoods(item)
     }else {
-      japanFoods += createFoods(item)
+      content += createFoods(item)
     }
 
   })
-
-  menuSection.innerHTML = koreaFoods
-  menuSection.innerHTML = japanFoods
-  menuSection.innerHTML = chinaFoods
+  console.log({country,content})
+  menuSection.innerHTML = content
+  
 }
 
-document.querySelector("#china").addEventListener("click",listChinaFoods)
-document.querySelector("#japan").addEventListener("click",listJapanFoods)
-document.querySelector("#korea").addEventListener("click",listKoreaFoods)
+document.querySelector("#china").addEventListener("click",()=>filterFoods("China"))  
+document.querySelector("#japan").addEventListener("click",()=>filterFoods("Japan"))
+document.querySelector("#korea").addEventListener("click",()=>filterFoods("Korea"))
 document.querySelector("#all").addEventListener("click",listAllFoods)
+
+/*
+const listJapanFoods = () => {
+    let japanFoods="";
+  
+    menu.map(item => {
+      if(item.category === "Japan"){
+        japanFoods += createFoods(item)
+      }
+    })
+    menuSection.innerHTML = japanFoods;
+  }
+*/
