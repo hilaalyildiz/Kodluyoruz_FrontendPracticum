@@ -143,7 +143,7 @@ const filterFoods = (country) => {
       content += createFoods(item)
     }else if (item.category === "China" && country === "China"){
       content += createFoods(item)
-    }else {
+    }else if(item.category === "Japan" && country === "Japan"){
       content += createFoods(item)
     }
 
